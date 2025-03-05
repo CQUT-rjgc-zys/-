@@ -1,0 +1,112 @@
+-- 药品信息表
+CREATE TABLE DrugInformation (
+    drug_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    manufacturer_id INT NOT NULL,
+    batch_number VARCHAR(100),
+    expiry_date DATE,
+    type_id INT NOT NULL,
+    current_version INT DEFAULT 1,
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (manufacturer_id) REFERENCES ManufacturerInformation(manufacturer_id),
+    FOREIGN KEY (type_id) REFERENCES DrugType(type_id)
+);
+
+-- 药品信息历史表
+CREATE TABLE DrugInformationHistory (
+    history_id INT AUTO_INCREMENT PRIMARY KEY,
+    drug_id INT NOT NULL,
+    version INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    manufacturer_id INT NOT NULL,
+    batch_number VARCHAR(100),
+    expiry_date DATE,
+    type_id INT NOT NULL,
+    modified_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modified_by INT,
+    change_description TEXT,
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (drug_id) REFERENCES DrugInformation(drug_id),
+    FOREIGN KEY (manufacturer_id) REFERENCES ManufacturerInformation(manufacturer_id),
+    FOREIGN KEY (type_id) REFERENCES DrugType(type_id)
+);
+
+-- 药品类型表
+CREATE TABLE DrugType (
+    type_id INT AUTO_INCREMENT PRIMARY KEY,
+    type_name VARCHAR(100) NOT NULL,
+    description TEXT,
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- 制造商信息表
+CREATE TABLE ManufacturerInformation (
+    manufacturer_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    address TEXT,
+    contact_info VARCHAR(255),
+    country VARCHAR(100),
+    established_date DATE,
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- 运输信息表
+CREATE TABLE ShipmentInformation (
+    shipment_id INT AUTO_INCREMENT PRIMARY KEY,
+    drug_id INT NOT NULL,
+    from_location VARCHAR(255),
+    to_location VARCHAR(255),
+    departure_date DATE,
+    arrival_date DATE,
+    carrier_id INT,
+    status VARCHAR(50),
+    tracking_number VARCHAR(100),
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (drug_id) REFERENCES DrugInformation(drug_id)
+);
+
+-- 存储信息表
+CREATE TABLE StorageInformation (
+    storage_id INT AUTO_INCREMENT PRIMARY KEY,
+    drug_id INT NOT NULL,
+    location_id INT,
+    temperature DECIMAL(5, 2),
+    humidity DECIMAL(5, 2),
+    storage_date DATE,
+    capacity INT,
+    status VARCHAR(50),
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (drug_id) REFERENCES DrugInformation(drug_id)
+);
+
+-- 销售信息表
+CREATE TABLE SalesInformation (
+    sale_id INT AUTO_INCREMENT PRIMARY KEY,
+    drug_id INT NOT NULL,
+    retailer_id INT,
+    sale_date DATE,
+    quantity INT,
+    price DECIMAL(10, 2),
+    discount DECIMAL(5, 2),
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (drug_id) REFERENCES DrugInformation(drug_id)
+);
+
+-- 区块链交易信息表
+CREATE TABLE BlockchainTransactionInformation (
+    transaction_id INT AUTO_INCREMENT PRIMARY KEY,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    previous_hash VARCHAR(255),
+    current_hash VARCHAR(255),
+    data TEXT,
+    transaction_type VARCHAR(50),
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
