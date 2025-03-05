@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Blockchain {
     private List<Block> chain;
+    private int difficulty;
 
     public Blockchain() {
         this.chain = new ArrayList<>();
@@ -20,9 +21,17 @@ public class Blockchain {
         return chain.get(chain.size() - 1);
     }
 
+    /**
+     * 添加一个新的区块到区块链中。
+     * 在添加之前，先进行挖矿以确保区块的哈希值符合难度要求。
+     * @param newBlock 要添加的区块
+     */
     public void addBlock(Block newBlock) {
+        // 设置新块的前一个哈希值为当前链中最后一个块的哈希值
         newBlock.setPreviousHash(getLatestBlock().getHash());
-        newBlock.setHash(newBlock.calculateHash());
+        // 挖矿以找到符合难度要求的哈希值
+        newBlock.mineBlock(difficulty);
+        // 将新块添加到区块链中
         this.chain.add(newBlock);
     }
 

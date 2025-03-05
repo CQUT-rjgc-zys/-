@@ -1,7 +1,7 @@
 package org.bysj.service.impl;
 
 import org.bysj.entity.ManufacturerInformationEntity;
-import org.bysj.mapper.ManufacturerInformationEntityMapper;
+import org.bysj.mapper.ManufacturerInformationMapper;
 import org.bysj.service.ManufacturerInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * 制造商信息 Service 实现类
- * 
+ *
  * 作者: zys
  * 时间: 2023年10月
  */
@@ -18,7 +18,7 @@ import java.util.List;
 public class ManufacturerInformationServiceImpl implements ManufacturerInformationService {
 
     @Autowired
-    private ManufacturerInformationEntityMapper manufacturerInformationEntityMapper;
+    private ManufacturerInformationMapper manufacturerInformationMapper;
 
     /**
      * 获取所有制造商信息
@@ -26,7 +26,7 @@ public class ManufacturerInformationServiceImpl implements ManufacturerInformati
      */
     @Override
     public List<ManufacturerInformationEntity> getAllManufacturers() {
-        return manufacturerInformationEntityMapper.selectList(null);
+        return manufacturerInformationMapper.selectList(null);
     }
 
     /**
@@ -36,7 +36,7 @@ public class ManufacturerInformationServiceImpl implements ManufacturerInformati
      */
     @Override
     public ManufacturerInformationEntity getManufacturerById(Integer id) {
-        return manufacturerInformationEntityMapper.selectById(id);
+        return manufacturerInformationMapper.selectById(id);
     }
 
     /**
@@ -45,7 +45,7 @@ public class ManufacturerInformationServiceImpl implements ManufacturerInformati
      */
     @Override
     public void saveManufacturer(ManufacturerInformationEntity manufacturer) {
-        manufacturerInformationEntityMapper.insert(manufacturer);
+        manufacturerInformationMapper.insert(manufacturer);
     }
 
     /**
@@ -54,7 +54,7 @@ public class ManufacturerInformationServiceImpl implements ManufacturerInformati
      */
     @Override
     public void updateManufacturer(ManufacturerInformationEntity manufacturer) {
-        manufacturerInformationEntityMapper.updateById(manufacturer);
+        manufacturerInformationMapper.updateById(manufacturer);
     }
 
     /**
@@ -63,6 +63,6 @@ public class ManufacturerInformationServiceImpl implements ManufacturerInformati
      */
     @Override
     public void deleteManufacturer(Integer id) {
-        manufacturerInformationEntityMapper.deleteById(id);
+        manufacturerInformationMapper.deleteById(id);
     }
-} 
+}

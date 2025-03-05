@@ -1,7 +1,7 @@
 package org.bysj.service.impl;
 
 import org.bysj.entity.BlockchainTransactionInformationEntity;
-import org.bysj.mapper.BlockchainTransactionInformationEntityMapper;
+import org.bysj.mapper.BlockchainTransactionInformationMapper;
 import org.bysj.service.BlockchainTransactionInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * 区块链交易信息 Service 实现类
- * 
+ *
  * 作者: zys
  * 时间: 2023年10月
  */
@@ -18,7 +18,7 @@ import java.util.List;
 public class BlockchainTransactionInformationServiceImpl implements BlockchainTransactionInformationService {
 
     @Autowired
-    private BlockchainTransactionInformationEntityMapper blockchainTransactionInformationEntityMapper;
+    private BlockchainTransactionInformationMapper blockchainTransactionInformationMapper;
 
     /**
      * 获取所有区块链交易信息
@@ -26,7 +26,7 @@ public class BlockchainTransactionInformationServiceImpl implements BlockchainTr
      */
     @Override
     public List<BlockchainTransactionInformationEntity> getAllTransactions() {
-        return blockchainTransactionInformationEntityMapper.selectList(null);
+        return blockchainTransactionInformationMapper.selectList(null);
     }
 
     /**
@@ -36,7 +36,7 @@ public class BlockchainTransactionInformationServiceImpl implements BlockchainTr
      */
     @Override
     public BlockchainTransactionInformationEntity getTransactionById(Integer id) {
-        return blockchainTransactionInformationEntityMapper.selectById(id);
+        return blockchainTransactionInformationMapper.selectById(id);
     }
 
     /**
@@ -45,7 +45,7 @@ public class BlockchainTransactionInformationServiceImpl implements BlockchainTr
      */
     @Override
     public void saveTransaction(BlockchainTransactionInformationEntity transaction) {
-        blockchainTransactionInformationEntityMapper.insert(transaction);
+        blockchainTransactionInformationMapper.insert(transaction);
     }
 
     /**
@@ -54,7 +54,7 @@ public class BlockchainTransactionInformationServiceImpl implements BlockchainTr
      */
     @Override
     public void updateTransaction(BlockchainTransactionInformationEntity transaction) {
-        blockchainTransactionInformationEntityMapper.updateById(transaction);
+        blockchainTransactionInformationMapper.updateById(transaction);
     }
 
     /**
@@ -63,6 +63,6 @@ public class BlockchainTransactionInformationServiceImpl implements BlockchainTr
      */
     @Override
     public void deleteTransaction(Integer id) {
-        blockchainTransactionInformationEntityMapper.deleteById(id);
+        blockchainTransactionInformationMapper.deleteById(id);
     }
-} 
+}

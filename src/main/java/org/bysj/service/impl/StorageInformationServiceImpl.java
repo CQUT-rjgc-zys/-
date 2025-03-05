@@ -1,7 +1,7 @@
 package org.bysj.service.impl;
 
 import org.bysj.entity.StorageInformationEntity;
-import org.bysj.mapper.StorageInformationEntityMapper;
+import org.bysj.mapper.StorageInformationMapper;
 import org.bysj.service.StorageInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * 存储信息 Service 实现类
- * 
+ *
  * 作者: zys
  * 时间: 2023年10月
  */
@@ -18,7 +18,7 @@ import java.util.List;
 public class StorageInformationServiceImpl implements StorageInformationService {
 
     @Autowired
-    private StorageInformationEntityMapper storageInformationEntityMapper;
+    private StorageInformationMapper storageInformationMapper;
 
     /**
      * 获取所有存储信息
@@ -26,7 +26,7 @@ public class StorageInformationServiceImpl implements StorageInformationService 
      */
     @Override
     public List<StorageInformationEntity> getAllStorages() {
-        return storageInformationEntityMapper.selectList(null);
+        return storageInformationMapper.selectList(null);
     }
 
     /**
@@ -36,7 +36,7 @@ public class StorageInformationServiceImpl implements StorageInformationService 
      */
     @Override
     public StorageInformationEntity getStorageById(Integer id) {
-        return storageInformationEntityMapper.selectById(id);
+        return storageInformationMapper.selectById(id);
     }
 
     /**
@@ -45,7 +45,7 @@ public class StorageInformationServiceImpl implements StorageInformationService 
      */
     @Override
     public void saveStorage(StorageInformationEntity storage) {
-        storageInformationEntityMapper.insert(storage);
+        storageInformationMapper.insert(storage);
     }
 
     /**
@@ -54,7 +54,7 @@ public class StorageInformationServiceImpl implements StorageInformationService 
      */
     @Override
     public void updateStorage(StorageInformationEntity storage) {
-        storageInformationEntityMapper.updateById(storage);
+        storageInformationMapper.updateById(storage);
     }
 
     /**
@@ -63,6 +63,6 @@ public class StorageInformationServiceImpl implements StorageInformationService 
      */
     @Override
     public void deleteStorage(Integer id) {
-        storageInformationEntityMapper.deleteById(id);
+        storageInformationMapper.deleteById(id);
     }
-} 
+}
