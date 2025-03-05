@@ -5,6 +5,9 @@ import org.bysj.mapper.StorageInformationMapper;
 import org.bysj.service.StorageInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.bysj.block.Block;
+import org.bysj.block.Blockchain;
+import org.bysj.block.Transaction;
 
 import java.util.List;
 
@@ -19,6 +22,8 @@ public class StorageInformationServiceImpl implements StorageInformationService 
 
     @Autowired
     private StorageInformationMapper storageInformationMapper;
+
+    private Blockchain blockchain = new Blockchain();
 
     /**
      * 获取所有存储信息
@@ -46,6 +51,22 @@ public class StorageInformationServiceImpl implements StorageInformationService 
     @Override
     public void saveStorage(StorageInformationEntity storage) {
         storageInformationMapper.insert(storage);
+
+        Transaction transaction = new Transaction(
+            storage.getStorageId().toString(),
+            "system",
+            "blockchain",
+            System.currentTimeMillis(),
+            "保存存储信息: " + storage.getStorageId()
+        );
+        Block newBlock = new Block(
+            blockchain.getLatestBlock().getIndex() + 1,
+            System.currentTimeMillis(),
+            List.of(transaction),
+            blockchain.getLatestBlock().getHash(),
+            0
+        );
+        blockchain.addBlock(newBlock);
     }
 
     /**
@@ -55,6 +76,22 @@ public class StorageInformationServiceImpl implements StorageInformationService 
     @Override
     public void updateStorage(StorageInformationEntity storage) {
         storageInformationMapper.updateById(storage);
+
+        Transaction transaction = new Transaction(
+            storage.getStorageId().toString(),
+            "system",
+            "blockchain",
+            System.currentTimeMillis(),
+            "更新存储信息: " + storage.getStorageId()
+        );
+        Block newBlock = new Block(
+            blockchain.getLatestBlock().getIndex() + 1,
+            System.currentTimeMillis(),
+            List.of(transaction),
+            blockchain.getLatestBlock().getHash(),
+            0
+        );
+        blockchain.addBlock(newBlock);
     }
 
     /**
@@ -64,5 +101,21 @@ public class StorageInformationServiceImpl implements StorageInformationService 
     @Override
     public void deleteStorage(Integer id) {
         storageInformationMapper.deleteById(id);
+
+        Transaction transaction = new Transaction(
+            id.toString(),
+            "system",
+            "blockchain",
+            System.currentTimeMillis(),
+            "删除存储信息ID: " + id
+        );
+        Block newBlock = new Block(
+            blockchain.getLatestBlock().getIndex() + 1,
+            System.currentTimeMillis(),
+            List.of(transaction),
+            blockchain.getLatestBlock().getHash(),
+            0
+        );
+        blockchain.addBlock(newBlock);
     }
 }

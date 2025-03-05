@@ -5,6 +5,9 @@ import org.bysj.mapper.SalesInformationMapper;
 import org.bysj.service.SalesInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.bysj.block.Block;
+import org.bysj.block.Blockchain;
+import org.bysj.block.Transaction;
 
 import java.util.List;
 
@@ -19,6 +22,8 @@ public class SalesInformationServiceImpl implements SalesInformationService {
 
     @Autowired
     private SalesInformationMapper salesInformationMapper;
+
+    private Blockchain blockchain = new Blockchain();
 
     /**
      * 获取所有销售信息
@@ -46,6 +51,22 @@ public class SalesInformationServiceImpl implements SalesInformationService {
     @Override
     public void saveSale(SalesInformationEntity sale) {
         salesInformationMapper.insert(sale);
+
+        Transaction transaction = new Transaction(
+            sale.getSaleId().toString(),
+            "system",
+            "blockchain",
+            System.currentTimeMillis(),
+            "保存销售信息: " + sale.getSaleId()
+        );
+        Block newBlock = new Block(
+            blockchain.getLatestBlock().getIndex() + 1,
+            System.currentTimeMillis(),
+            List.of(transaction),
+            blockchain.getLatestBlock().getHash(),
+            0
+        );
+        blockchain.addBlock(newBlock);
     }
 
     /**
@@ -55,6 +76,22 @@ public class SalesInformationServiceImpl implements SalesInformationService {
     @Override
     public void updateSale(SalesInformationEntity sale) {
         salesInformationMapper.updateById(sale);
+
+        Transaction transaction = new Transaction(
+            sale.getSaleId().toString(),
+            "system",
+            "blockchain",
+            System.currentTimeMillis(),
+            "更新销售信息: " + sale.getSaleId()
+        );
+        Block newBlock = new Block(
+            blockchain.getLatestBlock().getIndex() + 1,
+            System.currentTimeMillis(),
+            List.of(transaction),
+            blockchain.getLatestBlock().getHash(),
+            0
+        );
+        blockchain.addBlock(newBlock);
     }
 
     /**
@@ -64,5 +101,21 @@ public class SalesInformationServiceImpl implements SalesInformationService {
     @Override
     public void deleteSale(Integer id) {
         salesInformationMapper.deleteById(id);
+
+        Transaction transaction = new Transaction(
+            id.toString(),
+            "system",
+            "blockchain",
+            System.currentTimeMillis(),
+            "删除销售信息ID: " + id
+        );
+        Block newBlock = new Block(
+            blockchain.getLatestBlock().getIndex() + 1,
+            System.currentTimeMillis(),
+            List.of(transaction),
+            blockchain.getLatestBlock().getHash(),
+            0
+        );
+        blockchain.addBlock(newBlock);
     }
 }

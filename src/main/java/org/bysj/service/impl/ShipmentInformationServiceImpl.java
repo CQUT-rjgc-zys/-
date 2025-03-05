@@ -5,6 +5,9 @@ import org.bysj.mapper.ShipmentInformationMapper;
 import org.bysj.service.ShipmentInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.bysj.block.Block;
+import org.bysj.block.Blockchain;
+import org.bysj.block.Transaction;
 
 import java.util.List;
 
@@ -19,6 +22,8 @@ public class ShipmentInformationServiceImpl implements ShipmentInformationServic
 
     @Autowired
     private ShipmentInformationMapper shipmentInformationMapper;
+
+    private Blockchain blockchain = new Blockchain();
 
     /**
      * 获取所有运输信息
@@ -46,6 +51,22 @@ public class ShipmentInformationServiceImpl implements ShipmentInformationServic
     @Override
     public void saveShipment(ShipmentInformationEntity shipment) {
         shipmentInformationMapper.insert(shipment);
+
+        Transaction transaction = new Transaction(
+            shipment.getShipmentId().toString(),
+            "system",
+            "blockchain",
+            System.currentTimeMillis(),
+            "保存运输信息: " + shipment.getShipmentId()
+        );
+        Block newBlock = new Block(
+            blockchain.getLatestBlock().getIndex() + 1,
+            System.currentTimeMillis(),
+            List.of(transaction),
+            blockchain.getLatestBlock().getHash(),
+            0
+        );
+        blockchain.addBlock(newBlock);
     }
 
     /**
@@ -55,6 +76,22 @@ public class ShipmentInformationServiceImpl implements ShipmentInformationServic
     @Override
     public void updateShipment(ShipmentInformationEntity shipment) {
         shipmentInformationMapper.updateById(shipment);
+
+        Transaction transaction = new Transaction(
+            shipment.getShipmentId().toString(),
+            "system",
+            "blockchain",
+            System.currentTimeMillis(),
+            "更新运输信息: " + shipment.getShipmentId()
+        );
+        Block newBlock = new Block(
+            blockchain.getLatestBlock().getIndex() + 1,
+            System.currentTimeMillis(),
+            List.of(transaction),
+            blockchain.getLatestBlock().getHash(),
+            0
+        );
+        blockchain.addBlock(newBlock);
     }
 
     /**
@@ -64,5 +101,21 @@ public class ShipmentInformationServiceImpl implements ShipmentInformationServic
     @Override
     public void deleteShipment(Integer id) {
         shipmentInformationMapper.deleteById(id);
+
+        Transaction transaction = new Transaction(
+            id.toString(),
+            "system",
+            "blockchain",
+            System.currentTimeMillis(),
+            "删除运输信息ID: " + id
+        );
+        Block newBlock = new Block(
+            blockchain.getLatestBlock().getIndex() + 1,
+            System.currentTimeMillis(),
+            List.of(transaction),
+            blockchain.getLatestBlock().getHash(),
+            0
+        );
+        blockchain.addBlock(newBlock);
     }
 }

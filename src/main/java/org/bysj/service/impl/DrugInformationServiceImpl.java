@@ -5,6 +5,9 @@ import org.bysj.mapper.DrugInformationMapper;
 import org.bysj.service.DrugInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.bysj.block.Block;
+import org.bysj.block.Blockchain;
+import org.bysj.block.Transaction;
 
 import java.util.List;
 
@@ -19,6 +22,8 @@ public class DrugInformationServiceImpl implements DrugInformationService {
 
     @Autowired
     private DrugInformationMapper drugInformationMapper;
+
+    private Blockchain blockchain = new Blockchain();
 
     /**
      * 获取所有药品信息
@@ -49,6 +54,22 @@ public class DrugInformationServiceImpl implements DrugInformationService {
     @Override
     public void saveDrug(DrugInformationEntity drug) {
         drugInformationMapper.insert(drug);
+
+        Transaction transaction = new Transaction(
+            drug.getDrugId().toString(),
+            "system",
+            "blockchain",
+            System.currentTimeMillis(),
+            "保存药品信息: " + drug.getName()
+        );
+        Block newBlock = new Block(
+            blockchain.getLatestBlock().getIndex() + 1,
+            System.currentTimeMillis(),
+            List.of(transaction),
+            blockchain.getLatestBlock().getHash(),
+            0
+        );
+        blockchain.addBlock(newBlock);
     }
 
     /**
@@ -59,6 +80,22 @@ public class DrugInformationServiceImpl implements DrugInformationService {
     @Override
     public void updateDrug(DrugInformationEntity drug) {
         drugInformationMapper.updateById(drug);
+
+        Transaction transaction = new Transaction(
+            drug.getDrugId().toString(),
+            "system",
+            "blockchain",
+            System.currentTimeMillis(),
+            "更新药品信息: " + drug.getName()
+        );
+        Block newBlock = new Block(
+            blockchain.getLatestBlock().getIndex() + 1,
+            System.currentTimeMillis(),
+            List.of(transaction),
+            blockchain.getLatestBlock().getHash(),
+            0
+        );
+        blockchain.addBlock(newBlock);
     }
 
     /**
@@ -69,5 +106,21 @@ public class DrugInformationServiceImpl implements DrugInformationService {
     @Override
     public void deleteDrug(Integer id) {
         drugInformationMapper.deleteById(id);
+
+        Transaction transaction = new Transaction(
+            id.toString(),
+            "system",
+            "blockchain",
+            System.currentTimeMillis(),
+            "删除药品信息ID: " + id
+        );
+        Block newBlock = new Block(
+            blockchain.getLatestBlock().getIndex() + 1,
+            System.currentTimeMillis(),
+            List.of(transaction),
+            blockchain.getLatestBlock().getHash(),
+            0
+        );
+        blockchain.addBlock(newBlock);
     }
 }
