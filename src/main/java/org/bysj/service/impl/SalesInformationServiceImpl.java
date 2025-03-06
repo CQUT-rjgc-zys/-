@@ -1,7 +1,7 @@
 package org.bysj.service.impl;
 
 import org.bysj.entity.SalesInformationEntity;
-import org.bysj.mapper.SalesInformationMapper;
+import org.bysj.mapper.SalesInformationEntityMapper;
 import org.bysj.service.SalesInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,15 +10,12 @@ import java.util.List;
 
 /**
  * 销售信息 Service 实现类
- * 
- * 作者: zys
- * 时间: 2023年10月
  */
 @Service
 public class SalesInformationServiceImpl implements SalesInformationService {
 
     @Autowired
-    private SalesInformationMapper salesInformationMapper;
+    private SalesInformationEntityMapper salesInformationEntityMapper;
 
     /**
      * 获取所有销售信息
@@ -26,7 +23,7 @@ public class SalesInformationServiceImpl implements SalesInformationService {
      */
     @Override
     public List<SalesInformationEntity> getAllSales() {
-        return salesInformationMapper.selectList(null);
+        return salesInformationEntityMapper.selectList(null);
     }
 
     /**
@@ -36,7 +33,7 @@ public class SalesInformationServiceImpl implements SalesInformationService {
      */
     @Override
     public SalesInformationEntity getSaleById(Integer id) {
-        return salesInformationMapper.selectById(id);
+        return salesInformationEntityMapper.selectById(id);
     }
 
     /**
@@ -45,7 +42,7 @@ public class SalesInformationServiceImpl implements SalesInformationService {
      */
     @Override
     public void saveSale(SalesInformationEntity sale) {
-        salesInformationMapper.insert(sale);
+        salesInformationEntityMapper.insert(sale);
     }
 
     /**
@@ -54,7 +51,7 @@ public class SalesInformationServiceImpl implements SalesInformationService {
      */
     @Override
     public void updateSale(SalesInformationEntity sale) {
-        salesInformationMapper.updateById(sale);
+        salesInformationEntityMapper.updateById(sale);
     }
 
     /**
@@ -63,6 +60,6 @@ public class SalesInformationServiceImpl implements SalesInformationService {
      */
     @Override
     public void deleteSale(Integer id) {
-        salesInformationMapper.deleteById(id);
+        salesInformationEntityMapper.deleteById(id);
     }
 } 

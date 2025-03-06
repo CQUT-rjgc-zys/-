@@ -18,7 +18,7 @@ import java.util.List;
 public class DrugInformationServiceImpl implements DrugInformationService {
 
     @Autowired
-    private DrugInformationMapper drugInformationMapper;
+    private DrugInformationMapper drugInformationEntityMapper;
 
     /**
      * 获取所有药品信息
@@ -27,7 +27,7 @@ public class DrugInformationServiceImpl implements DrugInformationService {
      */
     @Override
     public List<DrugInformationEntity> getAllDrugs() {
-        return drugInformationMapper.selectList(null);
+        return drugInformationEntityMapper.selectList(null);
     }
 
     /**
@@ -38,7 +38,7 @@ public class DrugInformationServiceImpl implements DrugInformationService {
      */
     @Override
     public DrugInformationEntity getDrugById(Integer id) {
-        return drugInformationMapper.selectById(id);
+        return drugInformationEntityMapper.selectById(id);
     }
 
     /**
@@ -48,7 +48,7 @@ public class DrugInformationServiceImpl implements DrugInformationService {
      */
     @Override
     public void saveDrug(DrugInformationEntity drug) {
-        drugInformationMapper.insert(drug);
+        drugInformationEntityMapper.insert(drug);
     }
 
     /**
@@ -58,7 +58,7 @@ public class DrugInformationServiceImpl implements DrugInformationService {
      */
     @Override
     public void updateDrug(DrugInformationEntity drug) {
-        drugInformationMapper.updateById(drug);
+        drugInformationEntityMapper.updateById(drug);
     }
 
     /**
@@ -68,6 +68,6 @@ public class DrugInformationServiceImpl implements DrugInformationService {
      */
     @Override
     public void deleteDrug(Integer id) {
-        drugInformationMapper.deleteById(id);
+        drugInformationEntityMapper.deleteById(id);
     }
 } 

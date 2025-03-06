@@ -1,7 +1,7 @@
 package org.bysj.service.impl;
 
 import org.bysj.entity.ShipmentInformationEntity;
-import org.bysj.mapper.ShipmentInformationMapper;
+import org.bysj.mapper.ShipmentInformationEntityMapper;
 import org.bysj.service.ShipmentInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,15 +10,12 @@ import java.util.List;
 
 /**
  * 运输信息 Service 实现类
- * 
- * 作者: zys
- * 时间: 2023年10月
  */
 @Service
 public class ShipmentInformationServiceImpl implements ShipmentInformationService {
 
     @Autowired
-    private ShipmentInformationMapper shipmentInformationMapper;
+    private ShipmentInformationEntityMapper shipmentInformationEntityMapper;
 
     /**
      * 获取所有运输信息
@@ -26,7 +23,7 @@ public class ShipmentInformationServiceImpl implements ShipmentInformationServic
      */
     @Override
     public List<ShipmentInformationEntity> getAllShipments() {
-        return shipmentInformationMapper.selectList(null);
+        return shipmentInformationEntityMapper.selectList(null);
     }
 
     /**
@@ -36,7 +33,7 @@ public class ShipmentInformationServiceImpl implements ShipmentInformationServic
      */
     @Override
     public ShipmentInformationEntity getShipmentById(Integer id) {
-        return shipmentInformationMapper.selectById(id);
+        return shipmentInformationEntityMapper.selectById(id);
     }
 
     /**
@@ -45,7 +42,7 @@ public class ShipmentInformationServiceImpl implements ShipmentInformationServic
      */
     @Override
     public void saveShipment(ShipmentInformationEntity shipment) {
-        shipmentInformationMapper.insert(shipment);
+        shipmentInformationEntityMapper.insert(shipment);
     }
 
     /**
@@ -54,7 +51,7 @@ public class ShipmentInformationServiceImpl implements ShipmentInformationServic
      */
     @Override
     public void updateShipment(ShipmentInformationEntity shipment) {
-        shipmentInformationMapper.updateById(shipment);
+        shipmentInformationEntityMapper.updateById(shipment);
     }
 
     /**
@@ -63,6 +60,6 @@ public class ShipmentInformationServiceImpl implements ShipmentInformationServic
      */
     @Override
     public void deleteShipment(Integer id) {
-        shipmentInformationMapper.deleteById(id);
+        shipmentInformationEntityMapper.deleteById(id);
     }
 } 
