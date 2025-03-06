@@ -1,7 +1,7 @@
 package org.bysj.service.impl;
 
 import org.bysj.entity.SalesInformationEntity;
-import org.bysj.mapper.SalesInformationEntityMapper;
+import org.bysj.mapper.SalesInformationMapper;
 import org.bysj.service.SalesInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.List;
 public class SalesInformationServiceImpl implements SalesInformationService {
 
     @Autowired
-    private SalesInformationEntityMapper salesInformationEntityMapper;
+    private SalesInformationMapper salesInformationMapper;
 
     /**
      * 获取所有销售信息
@@ -26,7 +26,7 @@ public class SalesInformationServiceImpl implements SalesInformationService {
      */
     @Override
     public List<SalesInformationEntity> getAllSales() {
-        return salesInformationEntityMapper.selectList(null);
+        return salesInformationMapper.selectList(null);
     }
 
     /**
@@ -36,7 +36,7 @@ public class SalesInformationServiceImpl implements SalesInformationService {
      */
     @Override
     public SalesInformationEntity getSaleById(Integer id) {
-        return salesInformationEntityMapper.selectById(id);
+        return salesInformationMapper.selectById(id);
     }
 
     /**
@@ -45,7 +45,7 @@ public class SalesInformationServiceImpl implements SalesInformationService {
      */
     @Override
     public void saveSale(SalesInformationEntity sale) {
-        salesInformationEntityMapper.insert(sale);
+        salesInformationMapper.insert(sale);
     }
 
     /**
@@ -54,7 +54,7 @@ public class SalesInformationServiceImpl implements SalesInformationService {
      */
     @Override
     public void updateSale(SalesInformationEntity sale) {
-        salesInformationEntityMapper.updateById(sale);
+        salesInformationMapper.updateById(sale);
     }
 
     /**
@@ -63,6 +63,6 @@ public class SalesInformationServiceImpl implements SalesInformationService {
      */
     @Override
     public void deleteSale(Integer id) {
-        salesInformationEntityMapper.deleteById(id);
+        salesInformationMapper.deleteById(id);
     }
 } 

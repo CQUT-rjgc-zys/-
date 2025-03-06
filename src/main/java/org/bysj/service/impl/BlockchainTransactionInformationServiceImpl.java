@@ -1,7 +1,7 @@
 package org.bysj.service.impl;
 
 import org.bysj.entity.BlockchainTransactionInformationEntity;
-import org.bysj.mapper.BlockchainTransactionInformationEntityMapper;
+import org.bysj.mapper.BlockchainTransactionInformationMapper;
 import org.bysj.service.BlockchainTransactionInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.List;
 public class BlockchainTransactionInformationServiceImpl implements BlockchainTransactionInformationService {
 
     @Autowired
-    private BlockchainTransactionInformationEntityMapper blockchainTransactionInformationEntityMapper;
+    private BlockchainTransactionInformationMapper blockchainTransactionInformationEntityMapper;
 
     /**
      * 获取所有区块链交易信息

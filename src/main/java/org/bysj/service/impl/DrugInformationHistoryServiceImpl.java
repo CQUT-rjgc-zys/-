@@ -1,7 +1,7 @@
 package org.bysj.service.impl;
 
 import org.bysj.entity.DrugInformationHistoryEntity;
-import org.bysj.mapper.DrugInformationHistoryEntityMapper;
+import org.bysj.mapper.DrugInformationHistoryMapper;
 import org.bysj.service.DrugInformationHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.List;
 public class DrugInformationHistoryServiceImpl implements DrugInformationHistoryService {
 
     @Autowired
-    private DrugInformationHistoryEntityMapper drugInformationHistoryEntityMapper;
+    private DrugInformationHistoryMapper drugInformationHistoryMapper;
 
     /**
      * 获取所有药品信息历史
@@ -26,7 +26,7 @@ public class DrugInformationHistoryServiceImpl implements DrugInformationHistory
      */
     @Override
     public List<DrugInformationHistoryEntity> getAllHistory() {
-        return drugInformationHistoryEntityMapper.selectList(null);
+        return drugInformationHistoryMapper.selectList(null);
     }
 
     /**
@@ -36,7 +36,7 @@ public class DrugInformationHistoryServiceImpl implements DrugInformationHistory
      */
     @Override
     public DrugInformationHistoryEntity getHistoryById(Integer id) {
-        return drugInformationHistoryEntityMapper.selectById(id);
+        return drugInformationHistoryMapper.selectById(id);
     }
 
     /**
@@ -45,7 +45,7 @@ public class DrugInformationHistoryServiceImpl implements DrugInformationHistory
      */
     @Override
     public void saveHistory(DrugInformationHistoryEntity history) {
-        drugInformationHistoryEntityMapper.insert(history);
+        drugInformationHistoryMapper.insert(history);
     }
 
     /**
@@ -54,7 +54,7 @@ public class DrugInformationHistoryServiceImpl implements DrugInformationHistory
      */
     @Override
     public void updateHistory(DrugInformationHistoryEntity history) {
-        drugInformationHistoryEntityMapper.updateById(history);
+        drugInformationHistoryMapper.updateById(history);
     }
 
     /**
@@ -63,6 +63,6 @@ public class DrugInformationHistoryServiceImpl implements DrugInformationHistory
      */
     @Override
     public void deleteHistory(Integer id) {
-        drugInformationHistoryEntityMapper.deleteById(id);
+        drugInformationHistoryMapper.deleteById(id);
     }
 } 

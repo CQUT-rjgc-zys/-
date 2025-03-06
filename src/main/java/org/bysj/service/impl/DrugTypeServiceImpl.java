@@ -1,7 +1,7 @@
 package org.bysj.service.impl;
 
 import org.bysj.entity.DrugTypeEntity;
-import org.bysj.mapper.DrugTypeEntityMapper;
+import org.bysj.mapper.DrugTypeMapper;
 import org.bysj.service.DrugTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.List;
 public class DrugTypeServiceImpl implements DrugTypeService {
 
     @Autowired
-    private DrugTypeEntityMapper drugTypeEntityMapper;
+    private DrugTypeMapper drugTypeMapper;
 
     /**
      * 获取所有药品类型
@@ -26,7 +26,7 @@ public class DrugTypeServiceImpl implements DrugTypeService {
      */
     @Override
     public List<DrugTypeEntity> getAllTypes() {
-        return drugTypeEntityMapper.selectList(null);
+        return drugTypeMapper.selectList(null);
     }
 
     /**
@@ -36,7 +36,7 @@ public class DrugTypeServiceImpl implements DrugTypeService {
      */
     @Override
     public DrugTypeEntity getTypeById(Integer id) {
-        return drugTypeEntityMapper.selectById(id);
+        return drugTypeMapper.selectById(id);
     }
 
     /**
@@ -45,7 +45,7 @@ public class DrugTypeServiceImpl implements DrugTypeService {
      */
     @Override
     public void saveType(DrugTypeEntity type) {
-        drugTypeEntityMapper.insert(type);
+        drugTypeMapper.insert(type);
     }
 
     /**
@@ -54,7 +54,7 @@ public class DrugTypeServiceImpl implements DrugTypeService {
      */
     @Override
     public void updateType(DrugTypeEntity type) {
-        drugTypeEntityMapper.updateById(type);
+        drugTypeMapper.updateById(type);
     }
 
     /**
@@ -63,6 +63,6 @@ public class DrugTypeServiceImpl implements DrugTypeService {
      */
     @Override
     public void deleteType(Integer id) {
-        drugTypeEntityMapper.deleteById(id);
+        drugTypeMapper.deleteById(id);
     }
 } 

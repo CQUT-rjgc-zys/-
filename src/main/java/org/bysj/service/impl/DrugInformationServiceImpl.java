@@ -1,7 +1,7 @@
 package org.bysj.service.impl;
 
 import org.bysj.entity.DrugInformationEntity;
-import org.bysj.mapper.DrugInformationEntityMapper;
+import org.bysj.mapper.DrugInformationMapper;
 import org.bysj.service.DrugInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.List;
 public class DrugInformationServiceImpl implements DrugInformationService {
 
     @Autowired
-    private DrugInformationEntityMapper drugInformationEntityMapper;
+    private DrugInformationMapper drugInformationMapper;
 
     /**
      * 获取所有药品信息
@@ -27,7 +27,7 @@ public class DrugInformationServiceImpl implements DrugInformationService {
      */
     @Override
     public List<DrugInformationEntity> getAllDrugs() {
-        return drugInformationEntityMapper.selectList(null);
+        return drugInformationMapper.selectList(null);
     }
 
     /**
@@ -38,7 +38,7 @@ public class DrugInformationServiceImpl implements DrugInformationService {
      */
     @Override
     public DrugInformationEntity getDrugById(Integer id) {
-        return drugInformationEntityMapper.selectById(id);
+        return drugInformationMapper.selectById(id);
     }
 
     /**
@@ -48,7 +48,7 @@ public class DrugInformationServiceImpl implements DrugInformationService {
      */
     @Override
     public void saveDrug(DrugInformationEntity drug) {
-        drugInformationEntityMapper.insert(drug);
+        drugInformationMapper.insert(drug);
     }
 
     /**
@@ -58,7 +58,7 @@ public class DrugInformationServiceImpl implements DrugInformationService {
      */
     @Override
     public void updateDrug(DrugInformationEntity drug) {
-        drugInformationEntityMapper.updateById(drug);
+        drugInformationMapper.updateById(drug);
     }
 
     /**
@@ -68,6 +68,6 @@ public class DrugInformationServiceImpl implements DrugInformationService {
      */
     @Override
     public void deleteDrug(Integer id) {
-        drugInformationEntityMapper.deleteById(id);
+        drugInformationMapper.deleteById(id);
     }
 } 
